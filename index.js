@@ -187,7 +187,8 @@ function addEmployee() {
                   const employee = {
                     first_name: firstName,
                     last_name: lastName,
-                    role_id: empManager,
+                    role_id: newEmpRoleId,
+                    manager_id: empManager,
                   };
 
                   db.addAnEmployee(employee);
