@@ -184,7 +184,15 @@ function addEmployee() {
                 .then((res) => {
                   let empManager = res.mgrChoice;
                   console.log(empManager);
-                });
+                  const employee = {
+                    first_name: firstName,
+                    last_name: lastName,
+                    role_id: empManager,
+                  };
+
+                  db.addAnEmployee(employee);
+                })
+                .then(() => init());
               // then prompt the user to add the employee manager name. look into unshift function for ability to add a none value.
               //  Once that option is chosen create a object that passes the employee information to the addEmployee() then run the init function again
             });
