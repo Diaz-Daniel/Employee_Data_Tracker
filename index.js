@@ -141,14 +141,15 @@ function addEmployee() {
     .then((res) => {
       let firstName = res.first_name;
       let lastName = res.last_name;
-      // console.log(firstName);
+      console.log(firstName);
+      console.log(lastName);
 
       db.findAllRoles().then(([data]) => {
         const roleChoices = data.map(({ id, title }) => ({
           name: title,
           value: id,
         }));
-        // var roleId;
+
         inquirer
           .prompt([
             {
@@ -161,8 +162,32 @@ function addEmployee() {
           .then((res) => {
             let newEmpRoleId = res.roleId;
             console.log(newEmpRoleId);
-
-            //             //grab a list of all the employee's  then map the options as choices for manager. make sure the map fuction returns an object that concats the employee name as name, and passes the id as the value. then prompt the user to add the employee manager name. look into unshift function for ability to add a none value. Once that option is chosen create a object that passes the employee information to the addEmployee() then run the init function again
+            // grab a list of all the employee's  then map the options as choices for manager. make sure the map fuction returns an object that concats the employee name as name, and passes the id as the value.
+            db.findAllEmployees().then(([data]) => {
+              console.log(data);
+              const newEmpManager = data.map(
+                ({ id, first_name, last_name }) => ({
+                  name: first_name.concat(" ", last_name),
+                  value: id,
+                })
+              );
+              console.log(newEmpManager);
+              inquirer
+                .prompt([
+                  {
+                    type: "list",
+                    name: "mgrChoice",
+                    message: "Who is the employees manager?",
+                    choices: newEmpManager,
+                  },
+                ])
+                .then((res) => {
+                  let empManager = res.mgrChoice;
+                  console.log(empManager);
+                });
+              // then prompt the user to add the employee manager name. look into unshift function for ability to add a none value.
+              //  Once that option is chosen create a object that passes the employee information to the addEmployee() then run the init function again
+            });
           });
       });
     });
