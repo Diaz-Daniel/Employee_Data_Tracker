@@ -98,6 +98,9 @@ function init() {
       case "Add a role":
         addRole();
         break;
+      case "Add a department":
+        addNewDepartment();
+        break;
 
       default:
         process.exit();
@@ -255,6 +258,27 @@ function addRole() {
           .then(() => init());
       });
     });
+}
+
+function addNewDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "text",
+        name: "newdept",
+        message: "what is the name of the new department?",
+      },
+    ])
+    .then((res) => {
+      let addDept = res.newdept;
+      console.log(addDept);
+      let addNewDpt = {
+        name: addDept,
+      };
+
+      db.addDepartment(addNewDpt);
+    })
+    .then(() => init());
 }
 
 init();
