@@ -39,17 +39,20 @@ class DB {
         "SELECT department.id, department.name AS Department FROM department;"
       );
   }
-  addDepartment(department) {
+  addDepartment(addNewDpt) {
+    console.log("hit the function!");
+
     // WHEN I choose to add a department
     // THEN I am prompted to enter the name of the department and that department is added to the database
     return this.connection
       .promise()
-      .query("INSERT INTO department SET ?", department);
+      .query("INSERT INTO department SET ?", addNewDpt);
   }
-  addRole() {
+  addRole(newRole) {
+    console.log("hit the function!");
     // WHEN I choose to add a role
-    // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-    return this.connection.promise().query("");
+    // THEN I am prompted to enter the title, salary, and department for the role and that role is added to the database
+    return this.connection.promise().query("Insert into role SET ?", newRole);
   }
   addAnEmployee(employee) {
     console.log("hit the function!");
