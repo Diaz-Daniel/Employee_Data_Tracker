@@ -34,23 +34,23 @@ const addDept = [
 
 // WHEN I choose to add a role
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-const addRole = [
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the name of the role:",
-  },
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the salary:",
-  },
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the department for the role:",
-  },
-];
+// const addRole = [
+//   {
+//     type: "text",
+//     name: "name",
+//     message: "What is the name of the new role?",
+//   },
+//   {
+//     type: "text",
+//     name: "name",
+//     message: "What is the salary?",
+//   },
+//   {
+//     type: "text",
+//     name: "name",
+//     message: "what is the department that this role will be added into?",
+//   },
+// ];
 // WHEN I choose to add an employee
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 const addEmp = [
@@ -94,6 +94,9 @@ function init() {
         break;
       case "Add an employee":
         addEmployee();
+        break;
+      case "Add a role":
+        addRole();
         break;
 
       default:
@@ -198,6 +201,58 @@ function addEmployee() {
               //  Once that option is chosen create a object that passes the employee information to the addEmployee() then run the init function again
             });
           });
+      });
+    });
+}
+
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        type: "text",
+        name: "role",
+        message: "What is the name of the new role?",
+      },
+      {
+        type: "text",
+        name: "amount",
+        message: "What is the salary?",
+      },
+    ])
+    .then((res) => {
+      let roleName = res.role;
+      let newSalary = res.amount;
+      console.log(roleName);
+      console.log(newSalary);
+
+      db.findAllDepartments().then(([data]) => {
+        const dept = data.map(({ id, Department }) => ({
+          name: Department,
+          value: id,
+        }));
+
+        inquirer
+          .prompt([
+            {
+              type: "list",
+              name: "departmentName",
+              message: "What department will the role be in?",
+              choices: dept,
+            },
+          ])
+          .then((res) => {
+            let deptAddRole = res.departmentName;
+            console.log(deptAddRole);
+            const newRole = {
+              title: roleName,
+              salary: newSalary,
+              department_id: deptAddRole,
+            };
+
+            db.addRole(newRole);
+          })
+
+          .then(() => init());
       });
     });
 }
