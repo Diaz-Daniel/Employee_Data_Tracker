@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const {} = require("./db");
+const { updateEmployee } = require("./db");
 const db = require("./db");
 require("console.table");
 //connect seeds sql
@@ -100,6 +100,9 @@ function init() {
         break;
       case "Add a department":
         addNewDepartment();
+        break;
+      case "Update an employee role":
+        updateEmpRole();
         break;
 
       default:
@@ -281,12 +284,76 @@ function addNewDepartment() {
     .then(() => init());
 }
 
+function updateEmpRole() {
+  db.findAllEmployees().then(([data]) => {
+    const empName = data.map(({ id, first_name, last_name }) => ({
+      name: first_name.concat(" ", last_name),
+      value: id,
+    }));
+
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "updtRole",
+          message: "Update the role of which employee?",
+          choices: empName,
+        },
+      ])
+      .then((res) => {
+        let er = res.updtRole;
+        console.log(er);
+
+        db.findAllRoles().then(([data]) => {
+          const empRole = data.map(({ id, title }) => ({
+            name: title,
+            value: id,
+          }));
+
+          inquirer
+            .prompt([
+              {
+                type: "list",
+                name: "updtRole",
+                message: "What is the employee's new role?",
+                choices: empRole,
+              },
+            ])
+            .then((res) => {
+              let newEmployeeRole = res.updtRole;
+              console.log(newEmployeeRole);
+
+              const roleUpdate = {
+                role_id: newEmployeeRole,
+                id: er,
+              };
+              db.updateEmployee(roleUpdate);
+            })
+            .then(() => init());
+        });
+      });
+  });
+}
+
 init();
 
-// const employee = {
-//   first_name: "Dan",
-//   last_name: "Dia",
-//   role_id: 1,
-// };
+// db.findAllRoles().then(([data]) => {
+//   const empRole = data.map(({ id, title }) => ({
+//     name: title,
+//     value: id,
+//   }));
 
-// db.addAnEmployee(employee);
+//   inquirer
+//     .prompt([
+//       {
+//         type: "list",
+//         name: "updtRole",
+//         message: "Update which employee's role?",
+//         choices: empRole,
+//       },
+//     ])
+//     .then((res) => {
+//       let newEmployeeRole = res.updtRole;
+//       console.log(newEmployeeRole);
+//     });
+// });
