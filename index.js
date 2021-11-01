@@ -323,11 +323,7 @@ function updateEmpRole() {
               let newEmployeeRole = res.updtRole;
               console.log(newEmployeeRole);
 
-              const roleUpdate = {
-                role_id: newEmployeeRole,
-                id: er,
-              };
-              db.updateEmployee(roleUpdate);
+              db.updateEmployee(er, newEmployeeRole);
             })
             .then(() => init());
         });

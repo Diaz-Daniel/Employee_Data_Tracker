@@ -62,17 +62,15 @@ class DB {
       .promise()
       .query("INSERT INTO employee SET ?", employee);
   }
-  updateEmployee() {
+  updateEmployee(employeeId, roleId) {
     // WHEN I choose to update an employee role
     // THEN I am prompted to select an employee to update and their new role and this information is updated in the database
-    return this.connection.promise().query("");
+    //update emoloyee set role_it to new id
+    // console.log(roleUpdate);
+    return this.connection
+      .promise()
+      .query("UPDATE employee SET role_id=? WHERE id=?", [roleId, employeeId]);
   }
 }
 
 module.exports = new DB(connection);
-
-//Left Join
-// 'SELECT column_name(s)
-// FROM table1
-// LEFT JOIN table2
-// ON table1.column_name = table2.column_name;'
