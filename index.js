@@ -22,62 +22,6 @@ const openingQs = [
     ],
   },
 ];
-// WHEN I choose to add a department
-// THEN I am prompted to enter the name of the department and that department is added to the database
-const addDept = [
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the name of the department:",
-  },
-];
-
-// WHEN I choose to add a role
-// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-// const addRole = [
-//   {
-//     type: "text",
-//     name: "name",
-//     message: "What is the name of the new role?",
-//   },
-//   {
-//     type: "text",
-//     name: "name",
-//     message: "What is the salary?",
-//   },
-//   {
-//     type: "text",
-//     name: "name",
-//     message: "what is the department that this role will be added into?",
-//   },
-// ];
-// WHEN I choose to add an employee
-// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-const addEmp = [
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the first name of the employee:",
-  },
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the last name of the employee:",
-  },
-  {
-    type: "text",
-    name: "name",
-    message: "Enter the role of the employee:",
-  },
-  {
-    type: "text",
-    name: "name",
-    message:
-      "Enter the name of the manager that will oversee the new employee:",
-  },
-];
-// WHEN I choose to update an employee role
-// THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 function init() {
   inquirer.prompt(openingQs).then((res) => {
@@ -332,24 +276,3 @@ function updateEmpRole() {
 }
 
 init();
-
-// db.findAllRoles().then(([data]) => {
-//   const empRole = data.map(({ id, title }) => ({
-//     name: title,
-//     value: id,
-//   }));
-
-//   inquirer
-//     .prompt([
-//       {
-//         type: "list",
-//         name: "updtRole",
-//         message: "Update which employee's role?",
-//         choices: empRole,
-//       },
-//     ])
-//     .then((res) => {
-//       let newEmployeeRole = res.updtRole;
-//       console.log(newEmployeeRole);
-//     });
-// });
