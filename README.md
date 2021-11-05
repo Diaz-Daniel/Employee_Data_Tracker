@@ -28,4 +28,6 @@ This project uses Node.js, Inquirer and MySQL to build a command line applicatio
 
 -
 
-## Website Display
+## Employee Data Tracker
+
+![Project Example](https://im4.ezgif.com/tmp/ezgif-4-8147c906e393.gif)

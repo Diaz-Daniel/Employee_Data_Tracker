@@ -94,8 +94,8 @@ function addEmployee() {
     .then((res) => {
       let firstName = res.first_name;
       let lastName = res.last_name;
-      console.log(firstName);
-      console.log(lastName);
+      // console.log(firstName);
+      // console.log(lastName);
 
       db.findAllRoles().then(([data]) => {
         const roleChoices = data.map(({ id, title }) => ({
@@ -114,17 +114,17 @@ function addEmployee() {
           ])
           .then((res) => {
             let newEmpRoleId = res.roleId;
-            console.log(newEmpRoleId);
+            // console.log(newEmpRoleId);
 
             db.findAllEmployees().then(([data]) => {
-              console.log(data);
+              // console.log(data);
               const newEmpManager = data.map(
                 ({ id, first_name, last_name }) => ({
                   name: first_name.concat(" ", last_name),
                   value: id,
                 })
               );
-              console.log(newEmpManager);
+              // console.log(newEmpManager);
               inquirer
                 .prompt([
                   {
@@ -244,7 +244,7 @@ function updateEmpRole() {
       ])
       .then((res) => {
         let er = res.updtRole;
-        console.log(er);
+        // console.log(er);
 
         db.findAllRoles().then(([data]) => {
           const empRole = data.map(({ id, title }) => ({
@@ -263,7 +263,7 @@ function updateEmpRole() {
             ])
             .then((res) => {
               let newEmployeeRole = res.updtRole;
-              console.log(newEmployeeRole);
+              // console.log(newEmployeeRole);
 
               db.updateEmployee(er, newEmployeeRole);
             })
