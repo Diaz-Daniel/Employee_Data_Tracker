@@ -30,4 +30,4 @@ This project uses Node.js, Inquirer and MySQL to build a command line applicatio
 
 ## Employee Data Tracker
 
-![Project Example](https://watch.screencastify.com/v/uOFxnfs2GDsAs9R92S3K)
+[Project Example](https://watch.screencastify.com/v/uOFxnfs2GDsAs9R92S3K)
